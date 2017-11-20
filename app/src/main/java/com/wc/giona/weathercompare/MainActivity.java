@@ -5,10 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-
 public class MainActivity extends AppCompatActivity{
 
     public String[] owmInfo;
@@ -41,13 +37,35 @@ public class MainActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
-        /*RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
+        RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
         try {
             wuInfo = fetchWeatherWu.getForecastJSONwu("verona");
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
 
+
+
+        setViewText(owmInfo,apixuInfo,wuInfo);
+
+        //TODO per salvare le prenferenze (città, unità di misura) creare un file di testo da leggere ogni volta che l'app si avvia
+        //TODO bottone refresh: chiamare un nuovo OnCreate (oppure sempre lo stesso?)
+        //TODO Menù dal quale accedere alle impostazioni
+        //TODO DB connection
+
+
+        /*bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                } catch (Exception e) {}
+
+            }
+        });*/
+
+    }
+
+    public void setViewText(String[] owmInfo, String[] apixuInfo, String[] wuInfo) {
 
         TextView actualTemp = (TextView) findViewById(R.id.currentTemp);
         actualTemp.setText(owmInfo[0]);
@@ -65,22 +83,6 @@ public class MainActivity extends AppCompatActivity{
         maxOwm.setText(wuInfo[1]);
         TextView minWu = (TextView) findViewById(R.id.min3);
         minOwm.setText(wuInfo[2]);
-
-        //TODO per salvare le prenferenze (città, unità di misura) creare un file di testo da leggere ogni volta che l'app si avvia
-        //TODO bottone refresh: chiamare un nuovo OnCreate (oppure sempre lo stesso?)
-        //TODO Menù dal quale accedere alle impostazioni
-        //TODO DB connection
-
-
-        /*bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                } catch (Exception e) {}
-
-            }
-        });*/
-
     }
 
 

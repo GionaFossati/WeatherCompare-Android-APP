@@ -1,7 +1,5 @@
 package com.wc.giona.weathercompare;
 
-import android.content.Intent;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,16 +18,16 @@ public class RemoteFetchWu {
     public String[] getForecastJSONwu(String city) throws Exception {
         JSONObject data = null;
         try {
-            URL url = new URL(String.format("http://api.wunderground.com/api/02b568e5758b4ca8/forecast/q/IT/\" + city + \".json"));
+            URL url = new URL(String.format("http://api.wunderground.com/api/02b568e5758b4ca8/forecast/q/IT/" + city + ".json"));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             StringBuffer json = new StringBuffer(1024);
             String tmp = "";
-            while ((tmp = reader.readLine()) == "\n")
+            while ((tmp = reader.readLine()) != null)
                 //TODO trovare il modo di fare leggere tutto il JSON dal ciclo
-                json.append(tmp).append("\n");
+                json.append(tmp + "\n");
             reader.close();
 
             data = new JSONObject(json.toString());
@@ -41,6 +39,7 @@ public class RemoteFetchWu {
         wu = extractInfo(data);
         wu[0] = getCurrentJSONwu("verona");
         return wu;
+
 
 
     }
@@ -55,8 +54,9 @@ public class RemoteFetchWu {
 
             StringBuffer json = new StringBuffer(1024);
             String tmp = "";
-            while ((tmp = reader.readLine()) != null)
-                json.append(tmp).append("\n");
+            while ((tmp = reader.readLine()) != null) {
+                    if ((tmp = reader.readLine()).contains("temp_c")) { json.append(tmp).append("\n"); }
+                }
             reader.close();
 
             data = new JSONObject(json.toString());
