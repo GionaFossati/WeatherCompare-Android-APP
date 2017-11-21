@@ -59,6 +59,12 @@ public class RemoteFetchApixu {
         String tempMax_string = tempMax.toString();
         String tempMin_string = tempMin.toString();
 
+
+
+        temp_string = temp_string.substring(0, temp_string.length() - 2);
+        tempMax_string = tempMax_string.substring(0, tempMax_string.length() - 2);
+        tempMin_string = tempMin_string.substring(0, tempMin_string.length() - 2);
+
         String extractedInfo[] = new String[3];
         extractedInfo[0] =  temp_string;
         extractedInfo[1] =  tempMax_string;
