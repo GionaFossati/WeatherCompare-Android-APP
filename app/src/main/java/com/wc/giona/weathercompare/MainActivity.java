@@ -80,9 +80,9 @@ public class MainActivity extends AppCompatActivity{
         minApixu.setText(apixuInfo[2]);
 
         TextView maxWu = (TextView) findViewById(R.id.max3);
-        maxOwm.setText(wuInfo[1]);
+        maxWu.setText(wuInfo[1]);
         TextView minWu = (TextView) findViewById(R.id.min3);
-        minOwm.setText(wuInfo[2]);
+        minWu.setText(wuInfo[2]);
     }
 
 
