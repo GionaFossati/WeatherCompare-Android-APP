@@ -74,21 +74,21 @@ public class MainActivity extends AppCompatActivity{
     public void setViewText(String[] owmInfo, String[] apixuInfo, String[] wuInfo) {
 
         TextView actualTemp = (TextView) findViewById(R.id.currentTemp);
-        actualTemp.setText(owmInfo[0]);
+        actualTemp.setText(owmInfo[0] + " °C");
         TextView maxOwm = (TextView) findViewById(R.id.max1);
-        maxOwm.setText(owmInfo[1]);
+        maxOwm.setText(owmInfo[1] + " °C");
         TextView minOwm = (TextView) findViewById(R.id.min1);
-        minOwm.setText(owmInfo[2]);
+        minOwm.setText(owmInfo[2] + " °C");
 
         TextView maxApixu = (TextView) findViewById(R.id.max2);
-        maxApixu.setText(apixuInfo[1]);
+        maxApixu.setText(apixuInfo[1] + " °C");
         TextView minApixu = (TextView) findViewById(R.id.min2);
-        minApixu.setText(apixuInfo[2]);
+        minApixu.setText(apixuInfo[2] + " °C");
 
         TextView maxWu = (TextView) findViewById(R.id.max3);
-        maxWu.setText(wuInfo[1]);
+        maxWu.setText(wuInfo[1] + " °C");
         TextView minWu = (TextView) findViewById(R.id.min3);
-        minWu.setText(wuInfo[2]);
+        minWu.setText(wuInfo[2] + " °C");
     }
 
 
