@@ -20,7 +20,6 @@ public class RemoteFetchWu {
 
             StringBuffer json = new StringBuffer(1024);
             String tmp = "";
-            Integer i = 0;
 
             while ((tmp = reader.readLine()) != null)
                 json.append(tmp).append("\n");
@@ -58,6 +57,7 @@ public class RemoteFetchWu {
             reader.close();
 
             data2 = temp.substring(11,14);
+            if ((data2.length()) == 3) {data2 = data2.substring(0,2);}
 
         } catch (Exception e){
             e.printStackTrace();

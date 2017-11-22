@@ -52,11 +52,11 @@
 
     <TextView
         android:id="@+id/city_field"
-        android:layout_width="108dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="16dp"
-        android:text="@string/change_city"
-        android:textStyle="bold"
+        android:contentDescription=" "
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,8 +65,9 @@
     <TextView
         android:id="@+id/max2"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         app:layout_constraintBaseline_toBaselineOf="@+id/max3"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintHorizontal_bias="0.428"
@@ -78,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/imageView4"
@@ -88,6 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         app:layout_constraintBaseline_toBaselineOf="@+id/max2"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView" />
@@ -98,8 +101,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         app:layout_constraintEnd_toEndOf="@+id/max1"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/max1"
         app:layout_constraintTop_toBottomOf="@+id/max1" />
 
@@ -109,6 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         app:layout_constraintEnd_toEndOf="@+id/max2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/max2"
@@ -120,6 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         app:layout_constraintEnd_toEndOf="@+id/max3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/max3"
@@ -129,22 +134,26 @@
         android:id="@+id/currentTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textcurrent"
+        android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textcurrent" />
-
-    <TextView
-        android:id="@+id/textcurrent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:text="CURRENT:"
-        android:textAppearance="@android:style/TextAppearance.Holo.Large"
-        app:layout_constraintEnd_toStartOf="@+id/currentTemp"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city_field" />
+
+    <Button
+        android:id="@+id/refreshButton"
+        style="@android:style/Widget.Holo.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:elevation="5dp"
+        android:text="REFRESH"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+        app:layout_constraintBaseline_toBaselineOf="@+id/city_field"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@string/refresh" />
 
 </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,8 @@ package com.wc.giona.weathercompare;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity{
@@ -10,6 +12,9 @@ public class MainActivity extends AppCompatActivity{
     public String[] owmInfo;
     public String[] apixuInfo;
     public String[] wuInfo;
+    RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
+    RemoteFetchOwm fetchWeatherOwm = new RemoteFetchOwm();
+    RemoteFetchApixu fetchWeatherApixu = new RemoteFetchApixu();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +26,10 @@ public class MainActivity extends AppCompatActivity{
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        RemoteFetchOwm fetchWeatherOwm = new RemoteFetchOwm();
+        String city = "Verona";
+        TextView cityView = (TextView)findViewById(R.id.city_field);
+        cityView.setText(city.toUpperCase());
+
 
         try {
             owmInfo = fetchWeatherOwm.getJSONowm("Verona");
@@ -29,39 +37,37 @@ public class MainActivity extends AppCompatActivity{
             e.printStackTrace();
         }
 
-        RemoteFetchApixu fetchWeatherApixu = new RemoteFetchApixu();
-
         try {
             apixuInfo = fetchWeatherApixu.getJSONapixu("Verona");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
         try {
             wuInfo = fetchWeatherWu.getForecastJSONwu("verona");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-
         setViewText(owmInfo,apixuInfo,wuInfo);
 
-        //TODO per salvare le prenferenze (città, unità di misura) creare un file di testo da leggere ogni volta che l'app si avvia
-        //TODO bottone refresh: chiamare un nuovo OnCreate (oppure sempre lo stesso?)
-        //TODO Menù dal quale accedere alle impostazioni
-        //TODO DB connection
-
-
-        /*bt.setOnClickListener(new View.OnClickListener() {
+        Button bt = (Button) findViewById(R.id.refreshButton);
+        bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                } catch (Exception e) {}
+                    owmInfo = fetchWeatherOwm.getJSONowm("Verona");
+                    apixuInfo = fetchWeatherApixu.getJSONapixu("Verona");
+                    wuInfo = fetchWeatherWu.getForecastJSONwu("verona");
+                    setViewText(owmInfo,apixuInfo,wuInfo);
+                } catch (Exception e)  { e.printStackTrace();}
 
             }
-        });*/
+        });
+
+        //TODO per salvare le prenferenze (città, unità di misura) creare un file di testo da leggere ogni volta che l'app si avvia
+        //TODO Menù dal quale accedere alle impostazioni
+        //TODO DB connection
 
     }
 

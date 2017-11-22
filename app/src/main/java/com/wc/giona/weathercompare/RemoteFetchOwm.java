@@ -38,27 +38,46 @@ public class RemoteFetchOwm {
         return owm;
     }
 
+    public String temp;
+    public String tempMin;
+    public String tempMax;
 
     public String[] extractInfo(JSONObject data) throws JSONException {
         JSONObject main = (JSONObject) data.get("main");
         Log.d("pdpd3", "getJSONowm: preso main");
 
-        Double temp = (Double) main.get("temp");
-        Integer tempMin = (Integer) main.get("temp_min");
-        Integer tempMax = (Integer) main.get("temp_max");
+        if ((main.get("temp").getClass().getName()).equals("Integer")) {
+                temp = (main.get("temp")).toString();
+                     }
+            else { temp = (main.get("temp")).toString();
+                        }
 
-        String temp_string = temp.toString();
-        String tempMax_string = tempMax.toString();
-        String tempMin_string = tempMin.toString();
+        if ((main.get("temp_min").getClass().getName()).equals("Integer")) {
+                tempMin = (String) (main.get("temp_min")).toString();
+                    }
+            else { tempMin = (main.get("temp_min")).toString();
+                        }
+
+        if ((main.get("temp_max").getClass().getName()).equals("Integer")) {
+                tempMax =  (main.get("temp_max").toString());
+                    }
+            else { tempMax = (main.get("temp_max")).toString();
+                       }
+
+        //String temp_string = temp.toString();
+        //String tempMax_string = tempMax.toString();
+        //String tempMin_string = tempMin.toString();
 
         String extractedInfo[] = new String[3];
-        extractedInfo[0] =  temp_string;
-        extractedInfo[1] =  tempMax_string;
-        extractedInfo[2] =  tempMin_string;
+        extractedInfo[0] =  temp;
+        extractedInfo[1] =  tempMax;
+        extractedInfo[2] =  tempMin;
 
         return extractedInfo;
     }
-    }
+
+}
+
 
 
 
