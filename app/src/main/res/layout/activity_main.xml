@@ -7,38 +7,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:addStatesFromChildren="false"
-    android:background="@color/backgroundColor"
+    android:background="@drawable/gradient"
     tools:context="com.wc.giona.weathercompare.MainActivity">
 
 
     <TextView
         android:id="@+id/city_field"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimaryDark"
-        android:backgroundTint="@color/colorPrimaryDark"
+        android:autoSizeMaxTextSize="65sp"
+        android:autoSizeMinTextSize="35sp"
+        android:elegantTextHeight="false"
         android:foregroundGravity="bottom"
+        android:gravity="bottom"
         android:maxHeight="@android:dimen/app_icon_size"
-        android:padding="10dp"
+        android:minHeight="55dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         android:textColor="@android:color/background_light"
-        app:layout_constraintTop_toBottomOf="@+id/expText"
-        tools:layout_editor_absoluteX="155dp"
-        tools:text="city" />
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="CITY" />
 
     <TextView
         android:id="@+id/currentTemp"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_marginTop="20dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:minHeight="150dp"
         android:text="TextView"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-        android:textColor="@color/TEXTORANGE"
+        android:textColor="@android:color/background_light"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,51 +51,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/city_field" />
 
-    <Button
-        android:id="@+id/refreshButton"
-        style="@android:style/Widget.Holo.Button"
-        android:layout_width="100dp"
-        android:layout_height="46dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="17dp"
-        android:text="REFRESH"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/refresh" />
-
     <TextView
         android:id="@+id/expText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="EXPECTED:"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/min2" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/MinMaxLayout"
         android:layout_width="366dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-        app:layout_constraintVertical_bias="0.193">
+        app:layout_constraintTop_toBottomOf="@+id/expText">
 
         <TextView
             android:id="@+id/maxTemp"
@@ -150,7 +135,7 @@
         android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
         android:layout_height="92dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -166,7 +151,7 @@
             android:text="TextView"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/holo_red_light"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -190,10 +175,11 @@
             android:id="@+id/max1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:text="TextView"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/holo_red_light"
             app:layout_constraintBaseline_toBaselineOf="@+id/max2"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -204,7 +190,7 @@
             android:text="TextView"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/holo_red_light"
             app:layout_constraintBaseline_toBaselineOf="@+id/max3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -239,6 +225,34 @@
             app:layout_constraintStart_toStartOf="@+id/max2"
             app:layout_constraintTop_toBottomOf="@+id/max2" />
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/settings"
+        style="@android:style/Widget.Material.Light.Button.Toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimaryDark"
+
+        android:text="Settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MinMaxLayout" />
+
+    <ImageButton
+        android:id="@+id/imageButtonRefresh"
+        android:layout_width="39dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/currentTemp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_notify_sync" />
 
 
 </android.support.constraint.ConstraintLayout>

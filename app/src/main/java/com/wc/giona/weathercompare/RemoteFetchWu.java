@@ -32,7 +32,7 @@ public class RemoteFetchWu {
         }
         String wu[];
         wu = extractInfo(data);
-        wu[0] = getCurrentJSONwu("verona");
+        wu[0] = getCurrentJSONwu(city);
         String[] check = wu;
         return wu;
 

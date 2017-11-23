@@ -3,10 +3,6 @@ package com.wc.giona.weathercompare;
 import android.app.Activity;
 import android.content.SharedPreferences;
 
-/**
- * Created by Giona on 03/11/2017.
- */
-
 public class CityPreference {
     SharedPreferences prefs;
 

@@ -1,14 +1,16 @@
 package com.wc.giona.weathercompare;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     public String[] owmInfo;
     public String[] apixuInfo;
@@ -16,6 +18,7 @@ public class MainActivity extends AppCompatActivity{
     RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
     RemoteFetchOwm fetchWeatherOwm = new RemoteFetchOwm();
     RemoteFetchApixu fetchWeatherApixu = new RemoteFetchApixu();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,49 +30,66 @@ public class MainActivity extends AppCompatActivity{
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String city = "Verona";
-        TextView cityView = (TextView)findViewById(R.id.city_field);
-        cityView.setText(city.toUpperCase());
+        CityPreference cityObj = new CityPreference(MainActivity.this);
+        String city = cityObj.getCity().toString();
+
+        TextView cityView = (TextView) findViewById(R.id.city_field);
+        cityView.setText(city);
 
 
         try {
-            owmInfo = fetchWeatherOwm.getJSONowm("Verona");
+            owmInfo = fetchWeatherOwm.getJSONowm(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            apixuInfo = fetchWeatherApixu.getJSONapixu("Verona");
+            apixuInfo = fetchWeatherApixu.getJSONapixu(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            wuInfo = fetchWeatherWu.getForecastJSONwu("verona");
+            wuInfo = fetchWeatherWu.getForecastJSONwu(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        setViewText(owmInfo,apixuInfo,wuInfo);
+        setViewText(owmInfo, apixuInfo, wuInfo);
 
-        Button bt = (Button) findViewById(R.id.refreshButton);
+        ImageButton bt = (ImageButton) findViewById(R.id.imageButtonRefresh);
         bt.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 try {
-                    Toast.makeText(getBaseContext(), "Updating weather!" , Toast.LENGTH_SHORT ).show();
-                    owmInfo = fetchWeatherOwm.getJSONowm("Verona");
-                    apixuInfo = fetchWeatherApixu.getJSONapixu("Verona");
-                    wuInfo = fetchWeatherWu.getForecastJSONwu("verona");
-                    setViewText(owmInfo,apixuInfo,wuInfo);
-                } catch (Exception e)  { e.printStackTrace();}
+                    Toast.makeText(getBaseContext(), "Updating weather!", Toast.LENGTH_LONG).show();
+                    TextView cityView = (TextView) findViewById(R.id.city_field);
+                    CityPreference cityObj = new CityPreference(MainActivity.this);
+                    String city = cityObj.getCity().toString();
+                    cityView.setText(cityObj.getCity());
+                    owmInfo = fetchWeatherOwm.getJSONowm(city);
+                    apixuInfo = fetchWeatherApixu.getJSONapixu(city);
+                    wuInfo = fetchWeatherWu.getForecastJSONwu(city);
+                    setViewText(owmInfo, apixuInfo, wuInfo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
             }
         });
 
-        //TODO per salvare le prenferenze (città, unità di misura) creare un file di testo da leggere ogni volta che l'app si avvia
-        //TODO Menù dal quale accedere alle impostazioni
-        //TODO DB connection
+        Button settButton = (Button) findViewById(R.id.settings);
+        settButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent settings = new Intent(MainActivity.this, Settings.class);
+                startActivity(settings);
+
+            }
+        });
 
     }
 
@@ -93,7 +113,13 @@ public class MainActivity extends AppCompatActivity{
         minWu.setText(wuInfo[2] + " °C");
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        CityPreference cityPreference = new CityPreference(MainActivity.this);
+        TextView cityField = (TextView) findViewById(R.id.city_field);
+        cityField.setText(cityPreference.getCity());
+    }
 }
 
 
