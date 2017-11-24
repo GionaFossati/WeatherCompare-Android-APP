@@ -1,11 +1,14 @@
 package com.wc.giona.weathercompare;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
     RemoteFetchOwm fetchWeatherOwm = new RemoteFetchOwm();
     RemoteFetchApixu fetchWeatherApixu = new RemoteFetchApixu();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,61 +38,41 @@ public class MainActivity extends AppCompatActivity {
         TextView cityView = (TextView) findViewById(R.id.city_field);
         cityView.setText(city);
 
+        apixuInfo = fetchApixu(city);
+        owmInfo = fetchOwm(city);
+        wuInfo = fetchWu(city);
 
+        setViewText(owmInfo, apixuInfo, wuInfo);
+
+        buttonsClick();
+
+    }
+
+    public String[] fetchOwm(String city) {
         try {
             owmInfo = fetchWeatherOwm.getJSONowm(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return owmInfo;
+    }
 
+    public String[] fetchApixu(String city) {
         try {
             apixuInfo = fetchWeatherApixu.getJSONapixu(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return apixuInfo;
+    }
 
+    public String[] fetchWu(String city) {
         try {
             wuInfo = fetchWeatherWu.getForecastJSONwu(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        setViewText(owmInfo, apixuInfo, wuInfo);
-
-        ImageButton bt = (ImageButton) findViewById(R.id.imageButtonRefresh);
-        bt.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                try {
-                    Toast.makeText(getBaseContext(), "Updating weather!", Toast.LENGTH_LONG).show();
-                    TextView cityView = (TextView) findViewById(R.id.city_field);
-                    CityPreference cityObj = new CityPreference(MainActivity.this);
-                    String city = cityObj.getCity().toString();
-                    cityView.setText(cityObj.getCity());
-                    owmInfo = fetchWeatherOwm.getJSONowm(city);
-                    apixuInfo = fetchWeatherApixu.getJSONapixu(city);
-                    wuInfo = fetchWeatherWu.getForecastJSONwu(city);
-                    setViewText(owmInfo, apixuInfo, wuInfo);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-
-        Button settButton = (Button) findViewById(R.id.settings);
-        settButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent settings = new Intent(MainActivity.this, Settings.class);
-                startActivity(settings);
-
-            }
-        });
-
+        return wuInfo;
     }
 
     public void setViewText(String[] owmInfo, String[] apixuInfo, String[] wuInfo) {
@@ -120,8 +102,76 @@ public class MainActivity extends AppCompatActivity {
         TextView cityField = (TextView) findViewById(R.id.city_field);
         cityField.setText(cityPreference.getCity());
     }
-}
 
+    public void buttonsClick(){
+        ImageButton bt = (ImageButton) findViewById(R.id.imageButtonRefresh);
+        bt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    Toast.makeText(getBaseContext(), "Updating weather!", Toast.LENGTH_LONG).show();
+                    TextView cityView = (TextView) findViewById(R.id.city_field);
+                    CityPreference cityObj = new CityPreference(MainActivity.this);
+                    String city = cityObj.getCity().toString();
+                    cityView.setText(cityObj.getCity());
+                    owmInfo = fetchWeatherOwm.getJSONowm(city);
+                    apixuInfo = fetchWeatherApixu.getJSONapixu(city);
+                    wuInfo = fetchWeatherWu.getForecastJSONwu(city);
+                    setViewText(owmInfo, apixuInfo, wuInfo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        Button settButton = (Button) findViewById(R.id.editCity);
+        settButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showInputDialog();
+                Toast.makeText(getBaseContext(), "City updated!" , Toast.LENGTH_LONG ).show();
+
+            }
+        });
+
+    }
+
+    private void showInputDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change city");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+        builder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                changeCity(input.getText().toString());
+            }
+        });
+        builder.show();
+        TextView cityView = (TextView) findViewById(R.id.city_field);
+        CityPreference cityObj = new CityPreference(MainActivity.this);
+        cityView.setText(cityObj.getCity());
+    }
+
+    public void changeCity(String city) {
+        new CityPreference(this).setCity(city);
+        String newCity = new CityPreference(this).getCity();
+        TextView cityView = (TextView) findViewById(R.id.city_field);
+        cityView.setText(newCity);
+
+        apixuInfo = fetchApixu(newCity);
+        owmInfo = fetchOwm(newCity);
+        wuInfo = fetchWu(newCity);
+
+        setViewText(owmInfo, apixuInfo, wuInfo);
+
+    }
+
+}
 
 
 
