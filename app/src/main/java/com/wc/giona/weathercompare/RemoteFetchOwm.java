@@ -73,9 +73,3 @@ public class RemoteFetchOwm {
     }
 
 }
-
-
-
-
-
-

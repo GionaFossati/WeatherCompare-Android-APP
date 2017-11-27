@@ -58,6 +58,7 @@ public class RemoteFetchWu {
 
             data2 = temp.substring(11,14);
             if ((data2.length()) == 3) {data2 = data2.substring(0,2);}
+            if ((data2.endsWith("."))) {data2 = data2.substring(0,1);}
 
         } catch (Exception e){
             e.printStackTrace();

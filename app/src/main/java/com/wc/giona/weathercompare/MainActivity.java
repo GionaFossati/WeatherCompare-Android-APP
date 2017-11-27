@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static java.lang.Integer.parseInt;
+
 public class MainActivity extends AppCompatActivity {
 
     public String[] owmInfo;
@@ -68,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] fetchWu(String city) {
         try {
+
+
+
+
             wuInfo = fetchWeatherWu.getForecastJSONwu(city);
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +84,13 @@ public class MainActivity extends AppCompatActivity {
     public void setViewText(String[] owmInfo, String[] apixuInfo, String[] wuInfo) {
 
         TextView actualTemp = (TextView) findViewById(R.id.currentTemp);
-        actualTemp.setText(owmInfo[0] + " °C");
+        long actualTempLong = (long) ((Double.parseDouble(wuInfo[0]) + Double.parseDouble(owmInfo[0]) + Double.parseDouble(apixuInfo[0]))/3);
+        actualTempLong = Math.round(actualTempLong);
+        String actualTempString =  Long.toString(actualTempLong);
+        //actualTempString = actualTempString.substring(0,4);
+        actualTemp.setText(actualTempString + " °C");
+
+
         TextView maxOwm = (TextView) findViewById(R.id.max1);
         maxOwm.setText(owmInfo[1] + " °C");
         TextView minOwm = (TextView) findViewById(R.id.min1);
@@ -93,6 +105,14 @@ public class MainActivity extends AppCompatActivity {
         maxWu.setText(wuInfo[1] + " °C");
         TextView minWu = (TextView) findViewById(R.id.min3);
         minWu.setText(wuInfo[2] + " °C");
+
+
+        TextView maxTemp = (TextView) findViewById(R.id.maxTemp);
+        maxTemp.setText((parseInt(wuInfo[1]) + parseInt(owmInfo[1]) + parseInt(apixuInfo[1]))/3 + " °C");
+
+        TextView minTemp = (TextView) findViewById(R.id.minTemp);
+        minTemp.setText((parseInt(wuInfo[2]) + parseInt(owmInfo[2]) + parseInt(apixuInfo[2]))/3 + " °C");
+
     }
 
     @Override
@@ -132,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showInputDialog();
-                Toast.makeText(getBaseContext(), "City updated!" , Toast.LENGTH_LONG ).show();
-
             }
         });
 
@@ -168,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         wuInfo = fetchWu(newCity);
 
         setViewText(owmInfo, apixuInfo, wuInfo);
+        Toast.makeText(getBaseContext(), "City updated!" , Toast.LENGTH_LONG ).show();
 
     }
 
