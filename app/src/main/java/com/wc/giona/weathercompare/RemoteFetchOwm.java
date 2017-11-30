@@ -38,9 +38,9 @@ public class RemoteFetchOwm {
         return owm;
     }
 
-    public String temp;
-    public String tempMin;
-    public String tempMax;
+    private String temp;
+    private String tempMin;
+    private String tempMax;
 
     public String[] extractInfo(JSONObject data) throws JSONException {
         JSONObject main = (JSONObject) data.get("main");
@@ -72,4 +72,4 @@ public class RemoteFetchOwm {
         return extractedInfo;
     }
 
-}
+ }

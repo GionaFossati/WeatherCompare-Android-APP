@@ -86,9 +86,7 @@ public class MainActivity extends AppCompatActivity {
         TextView actualTemp = (TextView) findViewById(R.id.currentTemp);
         long actualTempLong = (long) ((Double.parseDouble(wuInfo[0]) + Double.parseDouble(owmInfo[0]) + Double.parseDouble(apixuInfo[0]))/3);
         actualTempLong = Math.round(actualTempLong);
-        String actualTempString =  Long.toString(actualTempLong);
-        //actualTempString = actualTempString.substring(0,4);
-        actualTemp.setText(actualTempString + " °C");
+        actualTemp.setText(actualTempLong + " °C");
 
 
         TextView maxOwm = (TextView) findViewById(R.id.max1);
@@ -147,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button settButton = (Button) findViewById(R.id.editCity);
+        ImageButton settButton = (ImageButton) findViewById(R.id.editCity);
         settButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
