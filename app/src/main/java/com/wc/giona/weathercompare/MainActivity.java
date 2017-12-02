@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import java.sql.SQLException;
 
 import static java.lang.Integer.parseInt;
@@ -48,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
         TextView cityView = (TextView) findViewById(R.id.city_field);
         cityView.setText(city);
 
+        try {
+            String[] ddd = fetchWeatherOwm.getForecast(city);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         apixuInfo = fetchApixu(city);
         owmInfo = fetchOwm(city);
         wuInfo = fetchWu(city);
@@ -60,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] fetchOwm(String city) {
         try {
-            owmInfo = fetchWeatherOwm.getJSONowm(city);
+            owmInfo = fetchWeatherOwm.getCurrent(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,10 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] fetchWu(String city) {
         try {
-
-
-
-
             wuInfo = fetchWeatherWu.getForecastJSONwu(city);
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     CityPreference cityObj = new CityPreference(MainActivity.this);
                     String city = cityObj.getCity().toString();
                     cityView.setText(cityObj.getCity());
-                    owmInfo = fetchWeatherOwm.getJSONowm(city);
+                    owmInfo = fetchWeatherOwm.getCurrent(city);
                     apixuInfo = fetchWeatherApixu.getCurrent(city);
                     wuInfo = fetchWeatherWu.getForecastJSONwu(city);
                     setViewText(owmInfo, apixuInfo, wuInfo);

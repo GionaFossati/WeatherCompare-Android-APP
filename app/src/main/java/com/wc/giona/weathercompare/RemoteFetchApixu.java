@@ -64,6 +64,10 @@ public class RemoteFetchApixu {
         String tempMax_string = Double.valueOf(Math.round(tempMax)).toString();
         String tempMin_string = Double.valueOf(Math.round(tempMin)).toString();
 
+        temp_string = temp_string.substring(0, temp_string.length() - 2);
+        tempMax_string = tempMax_string.substring(0, tempMax_string.length() - 2);
+        tempMin_string = tempMin_string.substring(0, tempMin_string.length() - 2);
+
         String extractedInfo[] = new String[3];
         extractedInfo[0] =  temp_string;
         extractedInfo[1] =  tempMax_string;
@@ -109,7 +113,7 @@ public class RemoteFetchApixu {
         String tempMinThree_string = Double.valueOf(Math.round(tempMinThree)).toString();
 
 
-        String extractedInfo[] = new String[5];
+        String extractedInfo[] = new String[6];
         extractedInfo[0] =  tempMaxOne_string;
         extractedInfo[1] =  tempMinOne_string;
         extractedInfo[2] =  tempMaxTwo_string;
