@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.SQLException;
+
 import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +30,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Database aa = new Database();
+        try {
+            aa.getFeed();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_main);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -61,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] fetchApixu(String city) {
         try {
-            apixuInfo = fetchWeatherApixu.getJSONapixu(city);
+            apixuInfo = fetchWeatherApixu.getCurrent(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     String city = cityObj.getCity().toString();
                     cityView.setText(cityObj.getCity());
                     owmInfo = fetchWeatherOwm.getJSONowm(city);
-                    apixuInfo = fetchWeatherApixu.getJSONapixu(city);
+                    apixuInfo = fetchWeatherApixu.getCurrent(city);
                     wuInfo = fetchWeatherWu.getForecastJSONwu(city);
                     setViewText(owmInfo, apixuInfo, wuInfo);
                 } catch (Exception e) {
@@ -161,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
-        builder.setPositiveButton("Go", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 changeCity(input.getText().toString());
