@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     public String[] fetchWu(String city) {
         try {
-            wuInfo = fetchWeatherWu.getForecastJSONwu(city);
+            wuInfo = fetchWeatherWu.getCurrent(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
                     cityView.setText(cityObj.getCity());
                     owmInfo = fetchWeatherOwm.getCurrent(city);
                     apixuInfo = fetchWeatherApixu.getCurrent(city);
-                    wuInfo = fetchWeatherWu.getForecastJSONwu(city);
+                    wuInfo = fetchWeatherWu.getCurrent(city);
                     setViewText(owmInfo, apixuInfo, wuInfo);
                 } catch (Exception e) {
                     e.printStackTrace();
