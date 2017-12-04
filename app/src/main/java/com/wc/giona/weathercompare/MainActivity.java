@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         CityPreference cityObj = new CityPreference(MainActivity.this);
         String city = cityObj.getCity().toString();
 
-        TextView cityView = findViewById(R.id.dayfield);
+        TextView cityView = findViewById(R.id.cityField);
         cityView.setText(city);
 
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         CityPreference cityPreference = new CityPreference(MainActivity.this);
-        TextView cityField = findViewById(R.id.dayfield);
+        TextView cityField = findViewById(R.id.cityField);
         cityField.setText(cityPreference.getCity());
     }
 
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    TextView cityView = (TextView) findViewById(R.id.dayfield);
+                    TextView cityView = (TextView) findViewById(R.id.cityField);
                     CityPreference cityObj = new CityPreference(MainActivity.this);
                     String city = cityObj.getCity().toString();
                     cityView.setText(cityObj.getCity());
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         builder.show();
-        TextView cityView = (TextView) findViewById(R.id.dayfield);
+        TextView cityView = (TextView) findViewById(R.id.cityField);
         CityPreference cityObj = new CityPreference(MainActivity.this);
         cityView.setText(cityObj.getCity());
     }
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeCity(String city) {
         new CityPreference(this).setCity(city);
         String newCity = new CityPreference(this).getCity();
-        TextView cityView = (TextView) findViewById(R.id.dayfield);
+        TextView cityView = (TextView) findViewById(R.id.cityField);
         cityView.setText(newCity);
 
         apixuInfo = fetchApixu(newCity);
