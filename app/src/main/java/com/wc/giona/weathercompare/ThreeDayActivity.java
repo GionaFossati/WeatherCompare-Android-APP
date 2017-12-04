@@ -4,9 +4,6 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class ThreeDayActivity extends AppCompatActivity {
     String[] wuForecast;
     String[] owmForecast;
@@ -27,18 +24,29 @@ public class ThreeDayActivity extends AppCompatActivity {
         CityPreference cityObj = new CityPreference(ThreeDayActivity.this);
         String city = cityObj.getCity().toString();
 
-        /*apixuForecast = fetchApixuForecast(city);
-        owmForecast = fetchOwmForecast(city);
-        owmForecast = fetchWuForecast(city);
-        */
+        try {
+            apixuForecast = fetchApixuForecast(city);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            owmForecast = fetchOwmForecast(city);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //owmForecast = fetchWuForecast(city);
+
     }
 
-    private void fetchApixuForecast(String city) throws Exception {
+    private String[] fetchApixuForecast(String city) throws Exception {
         apixuForecast = fetchWeatherApixu.getForecast(city);
+        return apixuForecast;
     }
 
-    private void fetchOwmForecast(String city) {
-
+    private String[] fetchOwmForecast(String city) throws Exception {
+        owmForecast = fetchWeatherOwm.getForecast(city);
+        return owmForecast;
     }
 
     private void fetchWuForecast(String city) {

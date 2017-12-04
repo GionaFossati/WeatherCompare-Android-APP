@@ -1,5 +1,7 @@
 package com.wc.giona.weathercompare;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
@@ -7,16 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-
-import java.sql.SQLException;
-
 import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,13 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Database aa = new Database();
-        try {
-            aa.getFeed();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         setContentView(R.layout.activity_main);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -47,14 +36,9 @@ public class MainActivity extends AppCompatActivity {
         CityPreference cityObj = new CityPreference(MainActivity.this);
         String city = cityObj.getCity().toString();
 
-        TextView cityView = (TextView) findViewById(R.id.city_field);
+        TextView cityView = findViewById(R.id.city_field);
         cityView.setText(city);
 
-        try {
-            String[] ddd = fetchWeatherOwm.getForecast(city);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         apixuInfo = fetchApixu(city);
         owmInfo = fetchOwm(city);
@@ -95,33 +79,36 @@ public class MainActivity extends AppCompatActivity {
 
     public void setViewText(String[] owmInfo, String[] apixuInfo, String[] wuInfo) {
 
-        TextView actualTemp = (TextView) findViewById(R.id.currentTemp);
+        TextView actualTemp = findViewById(R.id.currentTemp);
         long actualTempLong = (long) ((Double.parseDouble(wuInfo[0]) + Double.parseDouble(owmInfo[0]) + Double.parseDouble(apixuInfo[0]))/3);
         actualTempLong = Math.round(actualTempLong);
         actualTemp.setText(actualTempLong + " °C");
 
+        TextView maxTemp = findViewById(R.id.maxTemp);
+        TextView minTemp = findViewById(R.id.minTemp);
 
-        TextView maxOwm = (TextView) findViewById(R.id.max1);
-        maxOwm.setText(owmInfo[1] + " °C");
-        TextView minOwm = (TextView) findViewById(R.id.min1);
-        minOwm.setText(owmInfo[2] + " °C");
-
-        TextView maxApixu = (TextView) findViewById(R.id.max2);
-        maxApixu.setText(apixuInfo[1] + " °C");
-        TextView minApixu = (TextView) findViewById(R.id.min2);
-        minApixu.setText(apixuInfo[2] + " °C");
-
-        TextView maxWu = (TextView) findViewById(R.id.max3);
-        maxWu.setText(wuInfo[1] + " °C");
-        TextView minWu = (TextView) findViewById(R.id.min3);
-        minWu.setText(wuInfo[2] + " °C");
-
-
-        TextView maxTemp = (TextView) findViewById(R.id.maxTemp);
         maxTemp.setText((parseInt(wuInfo[1]) + parseInt(owmInfo[1]) + parseInt(apixuInfo[1]))/3 + " °C");
-
-        TextView minTemp = (TextView) findViewById(R.id.minTemp);
         minTemp.setText((parseInt(wuInfo[2]) + parseInt(owmInfo[2]) + parseInt(apixuInfo[2]))/3 + " °C");
+
+
+        //----------PASS VALUES TO FRAGMENT AND SET TEXT--------------
+        ServicesTempsTableFragment a = new ServicesTempsTableFragment();
+
+        Bundle bundleInfo = new Bundle();
+        Bundle bundleOwm = new Bundle();
+        Bundle bundleApixu = new Bundle();
+        Bundle bundleWu = new Bundle();
+
+        bundleApixu.putStringArray("apixu", apixuInfo);
+        bundleOwm.putStringArray("owm", owmInfo);
+        bundleWu.putStringArray("wu", wuInfo);
+        bundleInfo.putAll(bundleApixu);
+        bundleInfo.putAll(bundleOwm);
+        bundleInfo.putAll(bundleWu);
+
+        a.setArguments(bundleInfo);
+        a.SetText(findViewById(R.id.fragmentMain));
+
 
     }
 
@@ -129,12 +116,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         CityPreference cityPreference = new CityPreference(MainActivity.this);
-        TextView cityField = (TextView) findViewById(R.id.city_field);
+        TextView cityField = findViewById(R.id.city_field);
         cityField.setText(cityPreference.getCity());
     }
 
     public void buttonsClick(){
-        ImageButton bt = (ImageButton) findViewById(R.id.imageButtonRefresh);
+        ImageButton bt = findViewById(R.id.imageButtonRefresh);
         bt.setOnClickListener(new View.OnClickListener() {
 
             @Override

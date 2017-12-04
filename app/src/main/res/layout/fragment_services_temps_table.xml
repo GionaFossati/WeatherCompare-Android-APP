@@ -1,0 +1,146 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    tools:context="com.wc.giona.weathercompare.ServicesTempsTableFragment">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/fragmentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:addStatesFromChildren="false"
+        tools:context="com.wc.giona.weathercompare.MainActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="0dp"
+            android:layout_height="153dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/imageButton8"
+                android:layout_width="90dp"
+                android:layout_height="69dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="40dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentTemp"
+                app:srcCompat="@drawable/apixulogov6" />
+
+            <ImageButton
+                android:id="@+id/imageButton9"
+                android:layout_width="91dp"
+                android:layout_height="71dp"
+                android:layout_marginLeft="16dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentTemp"
+                app:srcCompat="@drawable/openweathermap" />
+
+            <ImageButton
+                android:id="@+id/imageButton2"
+                android:layout_width="91dp"
+                android:layout_height="71dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="72dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/currentTemp"
+                app:srcCompat="@drawable/wundergroundlogo" />
+
+            <TextView
+                android:id="@+id/max3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="48dp"
+                android:text="X °C"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:textColor="@android:color/holo_red_light"
+                app:layout_constraintBaseline_toBaselineOf="@+id/max2"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/min3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="X °C"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:textColor="@android:color/holo_blue_bright"
+                app:layout_constraintStart_toStartOf="@+id/max3"
+                app:layout_constraintTop_toBottomOf="@+id/max3" />
+
+            <TextView
+                android:id="@+id/max1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:text="X °C"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:textColor="@android:color/holo_red_light"
+                app:layout_constraintBaseline_toBaselineOf="@+id/max2"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/max2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="X °C"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:textColor="@android:color/holo_red_light"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageButton8" />
+
+            <TextView
+                android:id="@+id/min1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:text="X °C"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:textColor="@android:color/holo_blue_bright"
+                app:layout_constraintBaseline_toBaselineOf="@+id/min2"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/min2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X °C"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:textColor="@android:color/holo_blue_bright"
+                app:layout_constraintEnd_toEndOf="@+id/max2"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/max2"
+                app:layout_constraintTop_toBottomOf="@+id/max2" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
