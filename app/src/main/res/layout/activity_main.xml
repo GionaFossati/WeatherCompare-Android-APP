@@ -30,10 +30,34 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="CITY" />
 
+    <ImageButton
+        android:id="@+id/imageButtonRefresh"
+        android:layout_width="39dp"
+        android:layout_height="38dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/currentTemp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/stat_notify_sync" />
+
+    <ImageButton
+        android:id="@+id/editCity"
+        android:layout_width="43dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/tomorrowField"
+        app:layout_constraintStart_toEndOf="@+id/cityField"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
     <TextView
         android:id="@+id/currentTemp"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
         android:minHeight="150dp"
@@ -48,7 +72,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tomorrowField" />
+        app:layout_constraintTop_toBottomOf="@+id/cityField" />
 
     <fragment
         android:id="@+id/fragmentServicesMain"
@@ -80,27 +104,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentServicesMain" />
 
-    <ImageButton
-        android:id="@+id/imageButtonRefresh"
-        android:layout_width="39dp"
-        android:layout_height="38dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/currentTemp"
+    <fragment
+        android:id="@+id/fragmentMinMaxMain"
+        android:name="com.wc.giona.weathercompare.MaxMinFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/stat_notify_sync" />
-
-    <ImageButton
-        android:id="@+id/editCity"
-        android:layout_width="43dp"
-        android:layout_height="56dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/tomorrowField"
-        app:layout_constraintStart_toEndOf="@+id/tomorrowField"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        app:layout_constraintTop_toBottomOf="@+id/expText"
+        tools:layout="@layout/fragment_max_min" />
 
     <ImageButton
         android:id="@+id/button"
@@ -142,17 +155,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragmentMinMaxMain"
         app:srcCompat="@android:drawable/ic_menu_month" />
-
-    <fragment
-        android:id="@+id/fragmentMinMaxMain"
-        android:name="com.wc.giona.weathercompare.MaxMinFragment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expText"
-        tools:layout="@layout/fragment_max_min" />
 
 
 </android.support.constraint.ConstraintLayout>

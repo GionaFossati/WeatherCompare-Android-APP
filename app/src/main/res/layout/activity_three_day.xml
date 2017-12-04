@@ -47,6 +47,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:autoSizeMaxTextSize="65dp"
                 android:autoSizeMinTextSize="35dp"
                 android:maxHeight="55dp"
@@ -54,8 +55,8 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                 android:textColor="@android:color/background_light"
                 android:textSize="35sp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="8dp"
                 tools:text="@string/tomorrow" />
 
             <Button
@@ -151,6 +152,7 @@
                 android:id="@+id/dayAfterTomorrowField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:autoSizeMaxTextSize="65dp"
                 android:autoSizeMinTextSize="35dp"
                 android:maxHeight="55dp"
@@ -158,8 +160,8 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                 android:textColor="@android:color/background_light"
                 android:textSize="35sp"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="8dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/buttonDayAfterTomorrow"
@@ -301,10 +303,17 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:autoSizeMaxTextSize="65dp"
                 android:autoSizeMinTextSize="35dp"
                 android:maxHeight="55dp"
-    />
+                android:text="@string/tomorrow"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="@android:color/background_light"
+                android:textSize="35sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/today" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
