@@ -11,7 +11,7 @@
     tools:context="com.wc.giona.weathercompare.MainActivity">
 
     <TextView
-        android:id="@+id/city_field"
+        android:id="@+id/dayfield"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
@@ -48,10 +48,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_field" />
+        app:layout_constraintTop_toBottomOf="@+id/dayfield" />
 
     <fragment
-        android:id="@+id/fragmentMain"
+        android:id="@+id/fragmentServicesMain"
         android:name="com.wc.giona.weathercompare.ServicesTempsTableFragment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -78,72 +78,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentMain" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/MinMaxLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expText">
-
-        <TextView
-            android:id="@+id/maxTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="X °C"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="24sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-            app:layout_constraintStart_toStartOf="@+id/minTemp" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="MAX TEMP:"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/textView5"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
-            android:text="MIN TEMP:"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/minTemp"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <TextView
-            android:id="@+id/minTemp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginStart="8dp"
-            android:text="X °C"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="24sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textView5" />
-    </android.support.constraint.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/fragmentServicesMain" />
 
     <ImageButton
         android:id="@+id/imageButtonRefresh"
@@ -163,8 +98,8 @@
         android:layout_width="43dp"
         android:layout_height="56dp"
         android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/city_field"
-        app:layout_constraintStart_toEndOf="@+id/city_field"
+        app:layout_constraintBottom_toBottomOf="@+id/dayfield"
+        app:layout_constraintStart_toEndOf="@+id/dayfield"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <ImageButton
@@ -175,7 +110,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryDark"
         android:scaleType="fitCenter"
         android:text="Button"
@@ -183,32 +118,41 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/MinMaxLayout"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/threeDayButton"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentMinMaxMain"
         app:srcCompat="@android:drawable/btn_star_big_off" />
 
     <ImageButton
-        android:id="@+id/button2"
+        android:id="@+id/threeDayButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="4dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimaryDark"
         android:elevation="15dp"
         android:scaleType="fitCenter"
         android:text="Button"
-        android:tint="@color/backgroundColor"
+        android:tint="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MinMaxLayout"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/fragmentMinMaxMain"
         app:srcCompat="@android:drawable/ic_menu_month" />
+
+    <fragment
+        android:id="@+id/fragmentMinMaxMain"
+        android:name="com.wc.giona.weathercompare.MaxMinFragment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expText"
+        tools:layout="@layout/fragment_max_min" />
 
 
 </android.support.constraint.ConstraintLayout>

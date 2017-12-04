@@ -3,6 +3,12 @@ package com.wc.giona.weathercompare;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.transition.TransitionManager;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 public class ThreeDayActivity extends AppCompatActivity {
     String[] wuForecast;
@@ -29,27 +35,52 @@ public class ThreeDayActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         try {
             owmForecast = fetchOwmForecast(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //owmForecast = fetchWuForecast(city);
+        try {
+            owmForecast = fetchWuForecast(city);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Button bt = findViewById(R.id.btbt);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RelativeLayout layout = findViewById(R.id.todayFragment); //---begindelayedtransition?
+                if (layout.getVisibility() == View.VISIBLE) {
+                    ViewGroup.LayoutParams params =  layout.getLayoutParams();
+                    params.height = 1;
+                    layout.setVisibility(View.INVISIBLE);
+                    layout.requestLayout();
+                }
+                    else {
+                    ViewGroup.LayoutParams params =  layout.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    layout.setVisibility(View.VISIBLE);
+                    layout.requestLayout();
+
+                }
+            }
+        });
 
     }
 
     private String[] fetchApixuForecast(String city) throws Exception {
-        apixuForecast = fetchWeatherApixu.getForecast(city);
-        return apixuForecast;
+        return fetchWeatherApixu.getForecast(city);
     }
 
     private String[] fetchOwmForecast(String city) throws Exception {
-        owmForecast = fetchWeatherOwm.getForecast(city);
-        return owmForecast;
+        return fetchWeatherOwm.getForecast(city);
     }
 
-    private void fetchWuForecast(String city) {
+    private String[] fetchWuForecast(String city) throws Exception {
+        return fetchWeatherWu.getForecast(city);
 
     }
 

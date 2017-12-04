@@ -1,8 +1,7 @@
 package com.wc.giona.weathercompare;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         CityPreference cityObj = new CityPreference(MainActivity.this);
         String city = cityObj.getCity().toString();
 
-        TextView cityView = findViewById(R.id.city_field);
+        TextView cityView = findViewById(R.id.dayfield);
         cityView.setText(city);
 
 
@@ -84,15 +83,8 @@ public class MainActivity extends AppCompatActivity {
         actualTempLong = Math.round(actualTempLong);
         actualTemp.setText(actualTempLong + " °C");
 
-        TextView maxTemp = findViewById(R.id.maxTemp);
-        TextView minTemp = findViewById(R.id.minTemp);
 
-        maxTemp.setText((parseInt(wuInfo[1]) + parseInt(owmInfo[1]) + parseInt(apixuInfo[1]))/3 + " °C");
-        minTemp.setText((parseInt(wuInfo[2]) + parseInt(owmInfo[2]) + parseInt(apixuInfo[2]))/3 + " °C");
-
-
-        //----------PASS VALUES TO FRAGMENT AND SET TEXT--------------
-        ServicesTempsTableFragment a = new ServicesTempsTableFragment();
+        //----------PASS VALUES TO FRAGMENTS AND SET TEXT--------------
 
         Bundle bundleInfo = new Bundle();
         Bundle bundleOwm = new Bundle();
@@ -106,8 +98,14 @@ public class MainActivity extends AppCompatActivity {
         bundleInfo.putAll(bundleOwm);
         bundleInfo.putAll(bundleWu);
 
-        a.setArguments(bundleInfo);
-        a.SetText(findViewById(R.id.fragmentMain));
+        ServicesTempsTableFragment servicesTemps = new ServicesTempsTableFragment();
+        MaxMinFragment maxMinFragment= new MaxMinFragment();
+
+        servicesTemps.setArguments(bundleInfo);
+        maxMinFragment.setArguments(bundleInfo);
+
+        servicesTemps.SetText(findViewById(R.id.fragmentServicesMain));
+        maxMinFragment.SetText(findViewById(R.id.fragmentMinMaxMain));
 
 
     }
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         CityPreference cityPreference = new CityPreference(MainActivity.this);
-        TextView cityField = findViewById(R.id.city_field);
+        TextView cityField = findViewById(R.id.dayfield);
         cityField.setText(cityPreference.getCity());
     }
 
@@ -128,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    Toast.makeText(getBaseContext(), "Updating weather!", Toast.LENGTH_LONG).show();
-                    TextView cityView = (TextView) findViewById(R.id.city_field);
+                    TextView cityView = (TextView) findViewById(R.id.dayfield);
                     CityPreference cityObj = new CityPreference(MainActivity.this);
                     String city = cityObj.getCity().toString();
                     cityView.setText(cityObj.getCity());
@@ -137,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     apixuInfo = fetchWeatherApixu.getCurrent(city);
                     wuInfo = fetchWeatherWu.getCurrent(city);
                     setViewText(owmInfo, apixuInfo, wuInfo);
+                    Toast.makeText(getBaseContext(), "Weather Updated!", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -149,6 +147,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showInputDialog();
+                Toast.makeText(getBaseContext(), "City Updated!" , Toast.LENGTH_LONG ).show();
+            }
+        });
+
+        ImageButton threeDayButton = findViewById(R.id.threeDayButton);
+        threeDayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ThreeDayActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -167,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         builder.show();
-        TextView cityView = (TextView) findViewById(R.id.city_field);
+        TextView cityView = (TextView) findViewById(R.id.dayfield);
         CityPreference cityObj = new CityPreference(MainActivity.this);
         cityView.setText(cityObj.getCity());
     }
@@ -175,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     public void changeCity(String city) {
         new CityPreference(this).setCity(city);
         String newCity = new CityPreference(this).getCity();
-        TextView cityView = (TextView) findViewById(R.id.city_field);
+        TextView cityView = (TextView) findViewById(R.id.dayfield);
         cityView.setText(newCity);
 
         apixuInfo = fetchApixu(newCity);
@@ -183,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         wuInfo = fetchWu(newCity);
 
         setViewText(owmInfo, apixuInfo, wuInfo);
-        Toast.makeText(getBaseContext(), "City updated!" , Toast.LENGTH_LONG ).show();
+
 
     }
 
