@@ -1,15 +1,11 @@
 package com.wc.giona.weathercompare;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import static java.lang.Integer.parseInt;
 
 
 public class MaxMinFragment extends Fragment {
@@ -26,15 +22,39 @@ public class MaxMinFragment extends Fragment {
         Bundle bundleInfo = this.getArguments();
         if(getArguments()!=null)
         {
-            String[] owmInfo = getArguments().getStringArray("owm");
-            String[] apixuInfo = getArguments().getStringArray("apixu");
-            String[] wuInfo = getArguments().getStringArray("wu");
+            String[] owmInfoString = getArguments().getStringArray("owm");
+            String[] apixuInfoString = getArguments().getStringArray("apixu");
+            String[] wuInfoString = getArguments().getStringArray("wu");
+            String[] feedValuesString = getArguments().getStringArray("feedValues");
+
+            Double[] feedValues = new Double[3];
+            Double[] apixuInfo = new Double[3];
+            Double[] wuInfo = new Double[3];
+            Double[] owmInfo = new Double[3];
+
+            for (int i=0;i<3;i++) {feedValues[i] = Double.parseDouble(feedValuesString[i]);}
+            if (owmInfoString[0]==null) {
+                for (int i=1;i<3;i++) {apixuInfo[i] = Double.parseDouble(apixuInfoString[i]);}
+                for (int i=1;i<3;i++) {owmInfo[i] = Double.parseDouble(owmInfoString[i]);}
+                for (int i=1;i<3;i++) {wuInfo[i] = Double.parseDouble(wuInfoString[i]);}
+                } else {
+                for (int i=0;i<3;i++) {apixuInfo[i] = Double.parseDouble(apixuInfoString[i]);}
+                for (int i=0;i<3;i++) {owmInfo[i] = Double.parseDouble(owmInfoString[i]);}
+                for (int i=0;i<3;i++) {wuInfo[i] = Double.parseDouble(wuInfoString[i]);}
+            }
 
             TextView maxTemp = v.findViewById(R.id.maxTemp);
             TextView minTemp = v.findViewById(R.id.minTemp);
 
-            maxTemp.setText((parseInt(wuInfo[1]) + parseInt(owmInfo[1]) + parseInt(apixuInfo[1]))/3 + " °C");
-            minTemp.setText((parseInt(wuInfo[2]) + parseInt(owmInfo[2]) + parseInt(apixuInfo[2]))/3 + " °C");
+            Double feedValuesSum = feedValues[0] + feedValues[1] + feedValues[2];
+            //feedValues: apixu= [0] | owm=[1] | Wu= [2]
+            long maxTempLong = (long) ((wuInfo[1] * feedValues[2] + owmInfo[1]* feedValues[1] + apixuInfo[1] * feedValues[0])/ feedValuesSum);
+            maxTempLong = Math.round(maxTempLong);
+            maxTemp.setText(maxTempLong + " °C");
+
+            long minTempLong = (long) ((wuInfo[2] * feedValues[2] + owmInfo[2]* feedValues[1] + apixuInfo[2] * feedValues[0])/ feedValuesSum);
+            minTempLong = Math.round(minTempLong);
+            minTemp.setText(minTempLong + " °C");
         }
     }
 

@@ -8,20 +8,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import static java.lang.Integer.parseInt;
 
 public class MainActivity extends AppCompatActivity {
 
     public String[] owmInfo;
     public String[] apixuInfo;
     public String[] wuInfo;
+    public String[] feedValues;
     RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
     RemoteFetchOwm fetchWeatherOwm = new RemoteFetchOwm();
     RemoteFetchApixu fetchWeatherApixu = new RemoteFetchApixu();
+    DatabaseHelper myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
         TextView cityView = findViewById(R.id.cityField);
         cityView.setText(city);
 
+        //Intent intent = new Intent(MainActivity.this, ThreeDayActivity.class);
+        //startActivity(intent);
+
+        myDB= new DatabaseHelper(this);
+        feedValues = myDB.fetchData();
 
         apixuInfo = fetchApixu(city);
         owmInfo = fetchOwm(city);
@@ -77,9 +85,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setViewText(String[] owmInfo, String[] apixuInfo, String[] wuInfo) {
-
+        //feedValues: apixu= [0] | owm=[1] | Wu= [2]
         TextView actualTemp = findViewById(R.id.currentTemp);
-        long actualTempLong = (long) ((Double.parseDouble(wuInfo[0]) + Double.parseDouble(owmInfo[0]) + Double.parseDouble(apixuInfo[0]))/3);
+        Double[] feedDouble = new Double[3];
+        for (int i=0;i<3;i++) {feedDouble[i] = Double.valueOf(feedValues[i]);}
+        Double feedValuesSum = feedDouble[0] + feedDouble[1] + feedDouble[2];
+        long actualTempLong = (long) ((((Double.parseDouble(wuInfo[0]) * feedDouble[2])+ (Double.parseDouble(owmInfo[0])* feedDouble[1])) + (Double.parseDouble(apixuInfo[0])* feedDouble[0]))/ feedValuesSum);
         actualTempLong = Math.round(actualTempLong);
         actualTemp.setText(actualTempLong + " °C");
 
@@ -90,13 +101,17 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundleOwm = new Bundle();
         Bundle bundleApixu = new Bundle();
         Bundle bundleWu = new Bundle();
+        Bundle bundleFeedValues = new Bundle();
 
         bundleApixu.putStringArray("apixu", apixuInfo);
         bundleOwm.putStringArray("owm", owmInfo);
         bundleWu.putStringArray("wu", wuInfo);
+        bundleFeedValues.putStringArray("feedValues", feedValues);
+
         bundleInfo.putAll(bundleApixu);
         bundleInfo.putAll(bundleOwm);
         bundleInfo.putAll(bundleWu);
+        bundleInfo.putAll(bundleFeedValues);
 
         ServicesTempsTableFragment servicesTemps = new ServicesTempsTableFragment();
         MaxMinFragment maxMinFragment= new MaxMinFragment();
@@ -119,13 +134,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void buttonsClick(){
-        ImageButton bt = findViewById(R.id.imageButtonRefresh);
+
+        final Animation animation = new RotateAnimation(0.0f, 720.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        animation.setRepeatCount(1);
+        animation.setDuration(2000);
+
+        final ImageButton bt = findViewById(R.id.imageButtonRefresh);
         bt.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
                 try {
+                    bt.setAnimation(animation);
                     TextView cityView = (TextView) findViewById(R.id.cityField);
                     CityPreference cityObj = new CityPreference(MainActivity.this);
                     String city = cityObj.getCity().toString();
@@ -146,8 +169,8 @@ public class MainActivity extends AppCompatActivity {
         settButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInputDialog();
-                Toast.makeText(getBaseContext(), "City Updated!" , Toast.LENGTH_LONG ).show();
+                showInputDialog(animation);
+
             }
         });
 
@@ -160,9 +183,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton feedButton = findViewById(R.id.feedButton);
+        feedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
-    private void showInputDialog() {
+    private void showInputDialog(final Animation animation) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Change city");
         final EditText input = new EditText(this);
@@ -172,6 +204,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 changeCity(input.getText().toString());
+                Toast.makeText(getBaseContext(), "City Updated!" , Toast.LENGTH_LONG ).show();
+                ImageButton bt = findViewById(R.id.imageButtonRefresh);
+                bt.setAnimation(animation);
             }
         });
         builder.show();

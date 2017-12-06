@@ -10,21 +10,13 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
 
         <TextView
-            android:id="@+id/currentTemp"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:minHeight="150dp"
+            android:id="@+id/threedaytitle"
+            style="@style/title"
             android:text="@string/threeday"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
-            android:textColor="@android:color/background_light"
-            android:textSize="36sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -33,15 +25,113 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/Day1layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/threedaytitle"
+            android:animateLayoutChanges="true">
+
+            <Button
+                android:id="@+id/buttonToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Button"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RelativeLayout
+                android:id="@+id/todayMinMaxFragment"
+                android:layout_width="0dp"
+                android:layout_height="141dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/todayFragment">
+
+                <fragment
+                    android:id="@+id/fragmentMinMaxToday"
+                    android:name="com.wc.giona.weathercompare.MaxMinFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    tools:layout="@layout/fragment_max_min" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/todayFragment"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:visibility="invisible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonToday">
+
+                <fragment
+                    android:id="@+id/fragmentTableToday"
+                    android:name="com.wc.giona.weathercompare.ServicesTempsTableFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_margin="0dp"
+                    tools:layout="@layout/fragment_services_temps_table" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/todayField"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:autoSizeMaxTextSize="65sp"
+                android:autoSizeMinTextSize="35sp"
+                android:elegantTextHeight="false"
+                android:foregroundGravity="bottom"
+                android:gravity="center_vertical"
+                android:maxHeight="@android:dimen/app_icon_size"
+                android:minHeight="55dp"
+                android:text="@string/today"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Title"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/currentTemp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:autoSizeMaxTextSize="65dp"
+                android:autoSizeMinTextSize="35dp"
+                android:maxHeight="55dp"
+                android:text="@string/today"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textColor="@android:color/background_light"
+                android:textSize="35sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/Day2layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Day1layout">
+            app:layout_constraintTop_toBottomOf="@+id/Day1layout"
+            android:animateLayoutChanges="true">
 
             <TextView
                 android:id="@+id/textView2"
@@ -91,7 +181,7 @@
 
             <RelativeLayout
                 android:id="@+id/tomorrowFragment"
-                android:layout_width="395dp"
+                android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -102,7 +192,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tomorrowField">
 
                 <fragment
-                    android:id="@+id/fragment6"
+                    android:id="@+id/fragmentTableTomorrow"
                     android:name="com.wc.giona.weathercompare.ServicesTempsTableFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,14 +205,14 @@
 
             <RelativeLayout
                 android:id="@+id/tomorrowMinMaxFragment"
-                android:layout_width="395dp"
+                android:layout_width="0dp"
                 android:layout_height="141dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tomorrowFragment">
 
                 <fragment
-                    android:id="@+id/fragment5"
+                    android:id="@+id/fragmentMinMaxTomorrow"
                     android:name="com.wc.giona.weathercompare.MaxMinFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,12 +231,14 @@
             android:id="@+id/Day3layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Day2layout">
+            app:layout_constraintTop_toBottomOf="@+id/Day2layout"
+            >
 
             <TextView
                 android:id="@+id/dayAfterTomorrowField"
@@ -175,7 +267,7 @@
 
             <RelativeLayout
                 android:id="@+id/dayAfterTomorrowFragment"
-                android:layout_width="395dp"
+                android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
@@ -186,7 +278,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/buttonDayAfterTomorrow">
 
                 <fragment
-                    android:id="@+id/fragment7"
+                    android:id="@+id/fragmentTableThree"
                     android:name="com.wc.giona.weathercompare.ServicesTempsTableFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -199,14 +291,14 @@
 
             <RelativeLayout
                 android:id="@+id/dayAfterTomorrowMinMaxFragment"
-                android:layout_width="395dp"
+                android:layout_width="0dp"
                 android:layout_height="141dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dayAfterTomorrowFragment">
 
                 <fragment
-                    android:id="@+id/fragment8"
+                    android:id="@+id/fragmentMinMaxThree"
                     android:name="com.wc.giona.weathercompare.MaxMinFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -221,101 +313,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/Day1layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/currentTemp">
-
-            <Button
-                android:id="@+id/buttonToday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Button"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <RelativeLayout
-                android:id="@+id/todayMinMaxFragment"
-                android:layout_width="395dp"
-                android:layout_height="141dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/todayFragment">
-
-                <fragment
-                    android:id="@+id/fragment4"
-                    android:name="com.wc.giona.weathercompare.MaxMinFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    tools:layout="@layout/fragment_max_min" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/todayFragment"
-                android:layout_width="395dp"
-                android:layout_height="1dp"
-                android:visibility="invisible"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonToday">
-
-                <fragment
-                    android:id="@+id/fragment3"
-                    android:name="com.wc.giona.weathercompare.ServicesTempsTableFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_margin="0dp"
-                    tools:layout="@layout/fragment_services_temps_table" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/todayField"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:autoSizeMaxTextSize="65sp"
-                android:autoSizeMinTextSize="35sp"
-                android:elegantTextHeight="false"
-                android:foregroundGravity="bottom"
-                android:gravity="center_vertical"
-                android:maxHeight="@android:dimen/app_icon_size"
-                android:minHeight="55dp"
-                android:text="@string/today"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Title"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/currentTemp" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:autoSizeMaxTextSize="65dp"
-                android:autoSizeMinTextSize="35dp"
-                android:maxHeight="55dp"
-                android:text="@string/tomorrow"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-                android:textColor="@android:color/background_light"
-                android:textSize="35sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/today" />
-
-        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
 

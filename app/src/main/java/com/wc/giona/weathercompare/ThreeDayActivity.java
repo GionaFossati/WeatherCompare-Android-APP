@@ -24,7 +24,8 @@ public class ThreeDayActivity extends AppCompatActivity {
     RemoteFetchWu fetchWeatherWu = new RemoteFetchWu();
     RemoteFetchOwm fetchWeatherOwm = new RemoteFetchOwm();
     RemoteFetchApixu fetchWeatherApixu = new RemoteFetchApixu();
-    Double[] feedValues;
+    String[] feedValues;
+    DatabaseHelper myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,13 @@ public class ThreeDayActivity extends AppCompatActivity {
         }
 
         try {
-            owmForecast = fetchWuForecast(city);
+            wuForecast = fetchWuForecast(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        myDB= new DatabaseHelper(this);
+        feedValues = myDB.fetchData();
 
         buttonsClick();
         setTextViews();
@@ -153,5 +157,114 @@ public class ThreeDayActivity extends AppCompatActivity {
         todayTextView.setText(dateFormat.format(today));
         tomorrowTextView.setText(dateFormat.format(tomorrow));
         dayAfterTextView.setText(dateFormat.format(dayafter));
+
+        //----------PASS VALUES TO TABL FRAGMENTS AND SET TEXT--------------
+
+        Bundle bundleInfo = new Bundle();
+        Bundle bundleOwm = new Bundle();
+        Bundle bundleApixu = new Bundle();
+        Bundle bundleWu = new Bundle();
+        Bundle bundleFeedValues = new Bundle();
+        ServicesTempsTableFragment servicesTemps = new ServicesTempsTableFragment();
+        MaxMinFragment maxMinFragment= new MaxMinFragment();
+
+
+        //-------today bundle
+        String[] apixuTodayArray = new String[3];
+        apixuTodayArray[0] = null;
+        apixuTodayArray[1] =apixuForecast[0];
+        apixuTodayArray[2] =apixuForecast[1];
+        String[] owmTodayArray = new String[3];
+        owmTodayArray[0] = null;
+        owmTodayArray[1] =owmForecast[0];
+        owmTodayArray[2] =owmForecast[1];
+        String[] wuTodayArray = new String[3];
+        wuTodayArray[0] = null;
+        wuTodayArray[1] = wuForecast[0];
+        wuTodayArray[2] = wuForecast[1];
+
+        bundleApixu.putStringArray("apixu", apixuTodayArray);
+        bundleOwm.putStringArray("owm", owmTodayArray);
+        bundleWu.putStringArray("wu", wuTodayArray);
+        bundleFeedValues.putStringArray("feedValues", feedValues);
+
+        bundleInfo.putAll(bundleApixu);
+        bundleInfo.putAll(bundleOwm);
+        bundleInfo.putAll(bundleWu);
+        bundleInfo.putAll(bundleFeedValues);
+
+        servicesTemps.setArguments(bundleInfo);
+        maxMinFragment.setArguments(bundleInfo);
+
+        servicesTemps.SetText(findViewById(R.id.fragmentTableToday));
+        maxMinFragment.SetText(findViewById(R.id.fragmentMinMaxToday));
+
+        //-------tomorrow bundle
+        String[] apixuTomorrowArray = new String[3];
+        apixuTomorrowArray[0] = null;
+        apixuTomorrowArray[1] =apixuForecast[2];
+        apixuTomorrowArray[2] =apixuForecast[3];
+        String[] owmTomorrowArray = new String[3];
+        owmTomorrowArray[0] = null;
+        owmTomorrowArray[1] =owmForecast[2];
+        owmTomorrowArray[2] =owmForecast[3];
+        String[] wuTomorrowArray = new String[3];
+        wuTomorrowArray[0] = null;
+        wuTomorrowArray[1] = wuForecast[2];
+        wuTomorrowArray[2] = wuForecast[3];
+
+        bundleApixu.putStringArray("apixu", apixuTomorrowArray);
+        bundleOwm.putStringArray("owm", owmTomorrowArray);
+        bundleWu.putStringArray("wu", wuTomorrowArray);
+        bundleFeedValues.putStringArray("feedValues", feedValues);
+
+        bundleInfo.clear();
+        bundleInfo.putAll(bundleApixu);
+        bundleInfo.putAll(bundleOwm);
+        bundleInfo.putAll(bundleWu);
+        bundleInfo.putAll(bundleFeedValues);
+
+        servicesTemps.setArguments(bundleInfo);
+        maxMinFragment.setArguments(bundleInfo);
+
+        servicesTemps.SetText(findViewById(R.id.fragmentTableTomorrow));
+        maxMinFragment.SetText(findViewById(R.id.fragmentMinMaxTomorrow));
+
+        //------day after tomorrow bundle
+        String[] apixuThreeArray = new String[3];
+        apixuThreeArray[0] = null;
+        apixuThreeArray[1] =apixuForecast[4];
+        apixuThreeArray[2] =apixuForecast[5];
+        String[] owmThreeArray = new String[3];
+        owmThreeArray[0] = null;
+        owmThreeArray[1] =owmForecast[4];
+        owmThreeArray[2] =owmForecast[5];
+        String[] wuThreeArray = new String[3];
+        wuThreeArray[0] = null;
+        wuThreeArray[1] = wuForecast[4];
+        wuThreeArray[2] = wuForecast[5];
+
+        bundleApixu.putStringArray("apixu", apixuThreeArray);
+        bundleOwm.putStringArray("owm", owmThreeArray);
+        bundleWu.putStringArray("wu", wuThreeArray);
+        bundleFeedValues.putStringArray("feedValues", feedValues);
+
+        bundleInfo.clear();
+        bundleInfo.putAll(bundleApixu);
+        bundleInfo.putAll(bundleOwm);
+        bundleInfo.putAll(bundleWu);
+        bundleInfo.putAll(bundleFeedValues);
+
+        servicesTemps.setArguments(bundleInfo);
+        maxMinFragment.setArguments(bundleInfo);
+
+        servicesTemps.SetText(findViewById(R.id.fragmentTableThree));
+        maxMinFragment.SetText(findViewById(R.id.fragmentMinMaxThree));
+        //----------PASS VALUES TO MIN MAX FRAGMENTS AND SET TEXT--------------
+
+
+    }
+    {
+
     }
 }

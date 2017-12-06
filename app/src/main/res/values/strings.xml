@@ -17,5 +17,7 @@
     <string name="threeday">3 DAY FORECAST</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
+    <string name="feedback">SEND FEEDBACK</string>
+    <string name="send">SEND</string>
 
 </resources>

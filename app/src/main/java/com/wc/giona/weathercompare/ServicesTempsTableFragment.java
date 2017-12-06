@@ -1,7 +1,9 @@
 package com.wc.giona.weathercompare;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +48,28 @@ public class ServicesTempsTableFragment extends Fragment {
             minWu.setText(wuInfo[2] + " °C");
         }
     }
+
+    public void logoPressed(View view) {
+        showFeebackDialog();
+    }
+
+    private void showFeebackDialog() {
+        String[] feedValues= getArguments().getStringArray("feedValues");
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle("Weather Service's Reliability:");
+        final TextView apixu = new TextView(this.getContext());
+        final TextView owm = new TextView(this.getContext());
+        final TextView wu = new TextView(this.getContext());
+        builder.setView(apixu);
+        builder.setView(wu);
+        builder.setView(owm);
+        //feedValues: apixu= [0] | owm=[1] | Wu= [2]
+        apixu.setText(feedValues[0]);
+        owm.setText(feedValues[1]);
+        wu.setText(feedValues[2]);
+        builder.show();
+    }
+
 
 
 

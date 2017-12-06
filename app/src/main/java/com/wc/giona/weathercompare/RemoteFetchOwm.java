@@ -98,7 +98,8 @@ public class RemoteFetchOwm {
 
         String tempMaxOne_string = Double.valueOf(Math.round(tempMaxOne)).toString();
         String tempMinOne_string = Double.valueOf(Math.round(tempMinOne)).toString();
-
+        tempMaxOne_string = tempMaxOne_string.substring(0, tempMaxOne_string.length() - 2);
+        tempMinOne_string = tempMinOne_string.substring(0, tempMinOne_string.length() -2);
 
         //---------Tomorrow forecast
         JSONObject one = (JSONObject) list.get(Integer.parseInt("1"));
@@ -108,6 +109,8 @@ public class RemoteFetchOwm {
 
         String tempMaxTwo_string = Double.valueOf(Math.round(tempMaxTwo)).toString();
         String tempMinTwo_string = Double.valueOf(Math.round(tempMinTwo)).toString();
+        tempMaxTwo_string = tempMaxTwo_string.substring(0, tempMaxTwo_string.length() - 2);
+        tempMinTwo_string = tempMinTwo_string.substring(0, tempMinTwo_string.length() -2);
 
         //---------Day after Tomorrow forecast
         JSONObject two = (JSONObject) list.get(Integer.parseInt("2"));
@@ -117,7 +120,8 @@ public class RemoteFetchOwm {
 
         String tempMaxThree_string = Double.valueOf(Math.round(tempMaxThree)).toString();
         String tempMinThree_string = Double.valueOf(Math.round(tempMinThree)).toString();
-
+        tempMaxThree_string = tempMaxThree_string.substring(0, tempMaxThree_string.length() - 2);
+        tempMinThree_string = tempMinThree_string.substring(0, tempMinThree_string.length() -2);
 
         String extractedInfo[] = new String[6];
         extractedInfo[0] = tempMaxOne_string;
