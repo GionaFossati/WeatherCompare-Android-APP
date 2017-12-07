@@ -4,17 +4,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FeedbackActivity extends AppCompatActivity {
 
     public Integer[] newFeedValues = new Integer[3];
-
+    public String[] feedValues =  new String[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
+        getFeedValues();
+        setViews();
         }
 
 
@@ -41,15 +44,22 @@ public class FeedbackActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Please set all feedback stars!!" , Toast.LENGTH_LONG ).show();
     }
 
+    public void getFeedValues() {
+        DatabaseHelper db = new DatabaseHelper(this);
+        feedValues = db.fetchData();
 
+    }
 
+    private void setViews() {
+        //apixu= [0] | owm=[1] | Wu= [2]
 
+        TextView currentApixu = findViewById(R.id.currentApixu);
+        TextView currentOwm = findViewById(R.id.currentOwm);
+        TextView currentWu = findViewById(R.id.currentWu);
 
-
-
-
-    public void getFeedValues(Integer[] newFeedValues) {
-
+        currentApixu.setText(feedValues[0]);
+        currentOwm.setText(feedValues[1]);
+        currentWu.setText(feedValues[2]);
     }
 
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -41,11 +42,18 @@ public class MainActivity extends AppCompatActivity {
         TextView cityView = findViewById(R.id.cityField);
         cityView.setText(city);
 
-        //Intent intent = new Intent(MainActivity.this, ThreeDayActivity.class);
-        //startActivity(intent);
 
         myDB= new DatabaseHelper(this);
         feedValues = myDB.fetchData();
+        if (feedValues[0].equals("null")) {
+            Integer[] firstValues = new Integer[3];
+            firstValues[0] =  6;
+            firstValues[1] =  6;
+            firstValues[2] =  6;
+            myDB.insertData(firstValues);
+        }
+        feedValues = myDB.fetchData();
+
 
         apixuInfo = fetchApixu(city);
         owmInfo = fetchOwm(city);
@@ -88,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         //feedValues: apixu= [0] | owm=[1] | Wu= [2]
         TextView actualTemp = findViewById(R.id.currentTemp);
         Double[] feedDouble = new Double[3];
+
         for (int i=0;i<3;i++) {feedDouble[i] = Double.valueOf(feedValues[i]);}
         Double feedValuesSum = feedDouble[0] + feedDouble[1] + feedDouble[2];
         long actualTempLong = (long) ((((Double.parseDouble(wuInfo[0]) * feedDouble[2])+ (Double.parseDouble(owmInfo[0])* feedDouble[1])) + (Double.parseDouble(apixuInfo[0])* feedDouble[0]))/ feedValuesSum);
@@ -135,12 +144,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void buttonsClick(){
 
-        final Animation animation = new RotateAnimation(0.0f, 720.0f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-                0.5f);
-        animation.setRepeatCount(1);
-        animation.setDuration(2000);
-
         final ImageButton bt = findViewById(R.id.imageButtonRefresh);
         bt.setOnClickListener(new View.OnClickListener() {
 
@@ -148,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    bt.setAnimation(animation);
+                    Animation rotation = AnimationUtils.loadAnimation(MainActivity.this,R.anim.rotate);
+                    bt.setAnimation(rotation);
                     TextView cityView = (TextView) findViewById(R.id.cityField);
                     CityPreference cityObj = new CityPreference(MainActivity.this);
                     String city = cityObj.getCity().toString();
@@ -169,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         settButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showInputDialog(animation);
+                showInputDialog();
 
             }
         });
@@ -178,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
         threeDayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ThreeDayActivity.class);
+                Intent intent = new Intent(MainActivity.this, ThreeDayLoading.class);
                 startActivity(intent);
             }
         });
@@ -194,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showInputDialog(final Animation animation) {
+    private void showInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Change city");
         final EditText input = new EditText(this);
@@ -206,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
                 changeCity(input.getText().toString());
                 Toast.makeText(getBaseContext(), "City Updated!" , Toast.LENGTH_LONG ).show();
                 ImageButton bt = findViewById(R.id.imageButtonRefresh);
-                bt.setAnimation(animation);
+                Animation rotation = AnimationUtils.loadAnimation(MainActivity.this,R.anim.rotate);
+                bt.setAnimation(rotation);
             }
         });
         builder.show();

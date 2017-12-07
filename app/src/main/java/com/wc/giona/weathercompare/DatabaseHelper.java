@@ -23,12 +23,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public void onCreate(SQLiteDatabase db) {
-            String apixuCreate = "CREATE TABLE IF NOT EXISTS "+ APIXU_TABLE + "("+ COL_1 +" integer PRIMARY KEY,"+ COL_2 +" integer)";
-            String owmCreate = "CREATE TABLE IF NOT EXISTS "+ OWM_TABLE + "("+ COL_1 +" integer PRIMARY KEY,"+ COL_2 +" integer)";
-            String wuCreate = "CREATE TABLE IF NOT EXISTS "+ WU_TABLE + "("+ COL_1 +" integer PRIMARY KEY,"+ COL_2 +" integer)";
-            db.execSQL(apixuCreate);
-            db.execSQL(owmCreate);
-            db.execSQL(wuCreate);
+        String apixuCreate = "CREATE TABLE IF NOT EXISTS "+ APIXU_TABLE + "("+ COL_1 +" integer PRIMARY KEY,"+ COL_2 +" integer)";
+        String owmCreate = "CREATE TABLE IF NOT EXISTS "+ OWM_TABLE + "("+ COL_1 +" integer PRIMARY KEY,"+ COL_2 +" integer)";
+        String wuCreate = "CREATE TABLE IF NOT EXISTS "+ WU_TABLE + "("+ COL_1 +" integer PRIMARY KEY,"+ COL_2 +" integer)";
+        db.execSQL(apixuCreate);
+        db.execSQL(owmCreate);
+        db.execSQL(wuCreate);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long wuResult = db.insert(WU_TABLE,null,cvWu);
         if (apixuResult==-1 && owmResult==-1 && wuResult==-1)
             return false;
-            else return true;
+        else return true;
     }
 
     public String[] fetchData() {

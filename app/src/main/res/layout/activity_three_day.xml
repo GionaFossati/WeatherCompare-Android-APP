@@ -15,8 +15,13 @@
 
         <TextView
             android:id="@+id/threedaytitle"
-            style="@style/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_vertical|center_horizontal"
             android:text="@string/threeday"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="48sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -28,19 +33,20 @@
             android:id="@+id/Day1layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
+            android:animateLayoutChanges="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/threedaytitle"
-            android:animateLayoutChanges="true">
+            app:layout_constraintTop_toBottomOf="@+id/threedaytitle">
 
             <Button
                 android:id="@+id/buttonToday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Button"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="SEE MORE"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,8 +95,7 @@
                 android:id="@+id/todayField"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="28dp"
                 android:autoSizeMaxTextSize="65sp"
                 android:autoSizeMinTextSize="35sp"
                 android:elegantTextHeight="false"
@@ -100,8 +105,10 @@
                 android:minHeight="55dp"
                 android:text="@string/today"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.SearchResult.Title"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonToday"
                 app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/currentTemp" />
+                app:layout_constraintTop_toTopOf="@+id/buttonToday"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/textView"
@@ -124,14 +131,14 @@
             android:id="@+id/Day2layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:animateLayoutChanges="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Day1layout"
-            android:animateLayoutChanges="true">
+            app:layout_constraintTop_toBottomOf="@+id/Day1layout">
 
             <TextView
                 android:id="@+id/textView2"
@@ -154,8 +161,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Button"
+                android:background="@color/colorPrimaryDark"
+                android:text="SEE MORE"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -231,14 +238,14 @@
             android:id="@+id/Day3layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:animateLayoutChanges="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Day2layout"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/Day2layout">
 
             <TextView
                 android:id="@+id/dayAfterTomorrowField"
@@ -252,8 +259,9 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                 android:textColor="@android:color/background_light"
                 android:textSize="35sp"
+                app:layout_constraintBottom_toBottomOf="@+id/buttonDayAfterTomorrow"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/buttonDayAfterTomorrow" />
 
             <Button
                 android:id="@+id/buttonDayAfterTomorrow"
@@ -261,7 +269,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Button"
+                android:background="@color/colorPrimaryDark"
+                android:text="SEE MORE"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

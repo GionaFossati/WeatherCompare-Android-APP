@@ -4,18 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wc.giona.weathercompare.SplashScreen">
+    tools:context="com.wc.giona.weathercompare.ThreeDayLoading">
 
     <ImageView
         android:id="@+id/imageSplash"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="Splascreen"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/splashscreen" />
+        app:srcCompat="@mipmap/threeload" />
 
+    <ImageView
+        android:id="@+id/imageLoad"
+        android:layout_width="53dp"
+        android:layout_height="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/loadingicon" />
 </android.support.constraint.ConstraintLayout>

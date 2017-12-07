@@ -93,35 +93,64 @@ public class RemoteFetchOwm {
         //---------Today forecast
         JSONObject zero = (JSONObject) list.get(Integer.parseInt("0"));
         JSONObject tempOne = (JSONObject) zero.get("temp");
-        Double tempMaxOne = (Double) tempOne.get("max");
-        Double tempMinOne = (Double) tempOne.get("min");
+        Double tempMaxOne, tempMinOne;
+        Integer tempMaxOneInt, tempMinOneInt;
+        String tempMaxOne_string, tempMinOne_string;
+        if ((tempOne.get("max")).getClass().getName() == "java.lang.Double") {
+            tempMaxOne = (Double) tempOne.get("max");
+            tempMinOne = (Double) tempOne.get("min");
+            tempMaxOne_string = Double.valueOf(Math.round(tempMaxOne)).toString();
+            tempMinOne_string = Double.valueOf(Math.round(tempMinOne)).toString();
+            tempMaxOne_string = tempMaxOne_string.substring(0, tempMaxOne_string.length() - 2);
+            tempMinOne_string = tempMinOne_string.substring(0, tempMinOne_string.length() -2);
+        } else {
+            tempMaxOneInt = (Integer) tempOne.get("max");
+            tempMinOneInt = (Integer) tempOne.get("min");
+            tempMaxOne_string = (tempMaxOneInt).toString();
+            tempMinOne_string = (tempMinOneInt).toString();
+        }
 
-        String tempMaxOne_string = Double.valueOf(Math.round(tempMaxOne)).toString();
-        String tempMinOne_string = Double.valueOf(Math.round(tempMinOne)).toString();
-        tempMaxOne_string = tempMaxOne_string.substring(0, tempMaxOne_string.length() - 2);
-        tempMinOne_string = tempMinOne_string.substring(0, tempMinOne_string.length() -2);
 
         //---------Tomorrow forecast
         JSONObject one = (JSONObject) list.get(Integer.parseInt("1"));
         JSONObject tempTwo = (JSONObject) one.get("temp");
-        Double tempMaxTwo = (Double) tempTwo.get("max");
-        Double tempMinTwo = (Double) tempTwo.get("min");
-
-        String tempMaxTwo_string = Double.valueOf(Math.round(tempMaxTwo)).toString();
-        String tempMinTwo_string = Double.valueOf(Math.round(tempMinTwo)).toString();
-        tempMaxTwo_string = tempMaxTwo_string.substring(0, tempMaxTwo_string.length() - 2);
-        tempMinTwo_string = tempMinTwo_string.substring(0, tempMinTwo_string.length() -2);
+        Double tempMaxTwo, tempMinTwo;
+        Integer tempMaxTwoInt, tempMinTwoInt;
+        String tempMaxTwo_string, tempMinTwo_string;
+        if ((tempTwo.get("max")).getClass().getName() == "java.lang.Double") {
+            tempMaxTwo = (Double) tempTwo.get("max");
+            tempMinTwo = (Double) tempTwo.get("min");
+            tempMaxTwo_string = Double.valueOf(Math.round(tempMaxTwo)).toString();
+            tempMinTwo_string = Double.valueOf(Math.round(tempMinTwo)).toString();
+            tempMaxTwo_string = tempMaxTwo_string.substring(0, tempMaxTwo_string.length() - 2);
+            tempMinTwo_string = tempMinTwo_string.substring(0, tempMinTwo_string.length() -2);
+        } else {
+            tempMaxTwoInt = (Integer) tempTwo.get("max");
+            tempMinTwoInt = (Integer) tempTwo.get("min");
+            tempMaxTwo_string = (tempMaxTwoInt).toString();
+            tempMinTwo_string = (tempMinTwoInt).toString();
+        }
 
         //---------Day after Tomorrow forecast
         JSONObject two = (JSONObject) list.get(Integer.parseInt("2"));
         JSONObject tempThree = (JSONObject) two.get("temp");
-        Double tempMaxThree = (Double) tempThree.get("max");
-        Double tempMinThree = (Double) tempThree.get("min");
+        Double tempMaxThree, tempMinThree;
+        Integer tempMaxThreeInt, tempMinThreeInt;
+        String tempMaxThree_string, tempMinThree_string;
+        if ((tempThree.get("max")).getClass().getName() == "java.lang.Double") {
+            tempMaxThree = (Double) tempThree.get("max");
+            tempMinThree = (Double) tempThree.get("min");
+            tempMaxThree_string = Double.valueOf(Math.round(tempMaxThree)).toString();
+            tempMinThree_string = Double.valueOf(Math.round(tempMinThree)).toString();
+            tempMaxThree_string = tempMaxThree_string.substring(0, tempMaxThree_string.length() - 2);
+            tempMinThree_string = tempMinThree_string.substring(0, tempMinThree_string.length() -2);
+        } else {
+            tempMaxThreeInt = (Integer) tempThree.get("max");
+            tempMinThreeInt = (Integer) tempThree.get("min");
+            tempMaxThree_string = (tempMaxThreeInt).toString();
+            tempMinThree_string = (tempMinThreeInt).toString();
+        }
 
-        String tempMaxThree_string = Double.valueOf(Math.round(tempMaxThree)).toString();
-        String tempMinThree_string = Double.valueOf(Math.round(tempMinThree)).toString();
-        tempMaxThree_string = tempMaxThree_string.substring(0, tempMaxThree_string.length() - 2);
-        tempMinThree_string = tempMinThree_string.substring(0, tempMinThree_string.length() -2);
 
         String extractedInfo[] = new String[6];
         extractedInfo[0] = tempMaxOne_string;

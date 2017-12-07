@@ -3,19 +3,17 @@ package com.wc.giona.weathercompare;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ThreeDayActivity extends AppCompatActivity {
     String[] wuForecast;
@@ -26,6 +24,7 @@ public class ThreeDayActivity extends AppCompatActivity {
     RemoteFetchApixu fetchWeatherApixu = new RemoteFetchApixu();
     String[] feedValues;
     DatabaseHelper myDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +38,20 @@ public class ThreeDayActivity extends AppCompatActivity {
         String city = cityObj.getCity().toString();
 
         try {
-            apixuForecast = fetchApixuForecast(city);
+            apixuForecast = fetchWeatherApixu.getForecast(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            owmForecast = fetchOwmForecast(city);
+            owmForecast = fetchWeatherOwm.getForecast(city);
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger logger = Logger.getAnonymousLogger();
+            logger.log(Level.SEVERE, "an exception was thrown", e);
         }
 
         try {
-            wuForecast = fetchWuForecast(city);
+            wuForecast = fetchWeatherWu.getForecast(city);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,18 +61,6 @@ public class ThreeDayActivity extends AppCompatActivity {
 
         buttonsClick();
         setTextViews();
-    }
-
-    private String[] fetchApixuForecast(String city) throws Exception {
-        return fetchWeatherApixu.getForecast(city);
-    }
-
-    private String[] fetchOwmForecast(String city) throws Exception {
-        return fetchWeatherOwm.getForecast(city);
-    }
-
-    private String[] fetchWuForecast(String city) throws Exception {
-        return fetchWeatherWu.getForecast(city);
 
     }
 
@@ -168,16 +156,15 @@ public class ThreeDayActivity extends AppCompatActivity {
         ServicesTempsTableFragment servicesTemps = new ServicesTempsTableFragment();
         MaxMinFragment maxMinFragment= new MaxMinFragment();
 
-
         //-------today bundle
         String[] apixuTodayArray = new String[3];
         apixuTodayArray[0] = null;
-        apixuTodayArray[1] =apixuForecast[0];
-        apixuTodayArray[2] =apixuForecast[1];
+        apixuTodayArray[1] = apixuForecast[0];
+        apixuTodayArray[2] = apixuForecast[1];
         String[] owmTodayArray = new String[3];
         owmTodayArray[0] = null;
-        owmTodayArray[1] =owmForecast[0];
-        owmTodayArray[2] =owmForecast[1];
+        owmTodayArray[1] = owmForecast[0];
+        owmTodayArray[2] = owmForecast[1];
         String[] wuTodayArray = new String[3];
         wuTodayArray[0] = null;
         wuTodayArray[1] = wuForecast[0];
@@ -264,7 +251,5 @@ public class ThreeDayActivity extends AppCompatActivity {
 
 
     }
-    {
 
-    }
 }
